@@ -1,26 +1,44 @@
-function totalMatches() {
+
+function  readCsv(){
     let fs = require('fs');
     let csv = require('fast-csv');
     let matches = [];
     fs.createReadStream('ipl/matches.csv').pipe(csv()).on('data', function (data) {
-        //console.log(data);
+       
         if (Number(data[1])) {
             matches.push(data[1]);
         }
     }).on('end', function () {
-        let countedyears = matches.reduce((allyears, years) => {
-            if (years in allyears) {
-                allyears[years]++;
-            } else {
-                allyears[years] = 1;
-            }
-            return allyears;
-        }, {});
-        console.log(countedyears);
+        
+        totalMatches(matches);
+        matches=[];
     });
-   
 }
-totalMatches();
+function totalMatches(matches) {
+    let fs = require('fs');
+        let countYears=[];
+        let no_Of_Matches=1;
+        for(let i=0;i<matches.length;i++){
+            if(matches[i]==matches[i+1]){
+              no_Of_Matches++;
+            }else{
+                countYears.push([matches[i],no_Of_Matches]);
+                no_Of_Matches=1;
+            }
+        }
+       //return countYears;
+        console.log(countYears);
+        fs.writeFile("jsonFile/matchesPerYear.json",JSON.stringify(countYears), function (err) {
+            if (err) throw err;
+            console.log('Saved!');
+          });   
+}
+readCsv();
+
+//exporting functions
+// module.exports = {
+// 	totalMatches: totalMatches
+// }
 
 
 
@@ -32,6 +50,30 @@ totalMatches();
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+// let countedyears = matches.reduce((allyears, years) => {
+        //     if (years in allyears) {
+        //         allyears[years]++;
+        //     } else {
+        //         allyears[years] = 1;
+        //     }
+        //     return allyears;
+        // }, {});
+        // let years=JSON.stringify(countedyears);
+        // console.log(years);
+
+
+// 
 
 
 
