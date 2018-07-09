@@ -6,7 +6,7 @@ function readCsv(path) {
     let matches = [];
     let countYears = [];
     if (!fs.existsSync(path)) {
-        console.log("file not found");
+        Console.log("file not found");
         return false;
     } else {
         return new Promise(function (resolve, reject) {
