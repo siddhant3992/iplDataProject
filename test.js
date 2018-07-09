@@ -1,26 +1,31 @@
 let expect = require("chai").expect;
-let app = require("./app.js");
+let path = require("path");
+let filename = path.resolve("./app.js");
+let app = require(filename);
+let dataset = path.resolve("./ipl/matchTest.csv");
 describe("app", function () {
-    it("should return total number of matches played per year", function () {
 
-        let matches = ['2017',
-            '2017',
-            '2016',
-            '2016',
-            '2016',
-            '2015',
-            '2015'
-        ]
+    //------------test cases for number of matches----------.
+    it("should return total number of matches played per year", function (done) {
 
         let expectedResult = [
-            ['2017', 2],
-            ['2016', 3],
-            ['2015', 2],
+            ["2017", 10]
         ]
-        let result = app.totalMatches(matches);
+        app.readCsv(dataset).then(function (data) {
+            try {
+                expect(data).deep.equal(expectedResult);
+                done();
+            } catch (e) {
+                done(e);
+            }
+        })
 
-        expect(result).deep.equal(expectedResult);
     })
-
-
+    //------------file not found case--------------------.
+    it("should return file not found", async function () {
+        let expectedResult = false;
+        let dat = "./ipl/text.txt"
+        const data = await app.readCsv(dat);
+        expect(data).equal(expectedResult);
+    })
 })

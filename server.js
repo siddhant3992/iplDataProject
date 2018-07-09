@@ -6,32 +6,34 @@ function getFiles(path) {
             fileItems = JSON.parse(this.responseText);
         }
     };
-    request.open('GET', path, false);
+    request.open("GET", path, false);
     request.send();
     return fileItems;
 }
 
 function plotGraph() {
-    let gt=getFiles('/jsonFile/matchesPerYear.json'); 
-    let chart = Highcharts.chart('container', {
+    let gt = getFiles("/jsonFile/matchesPerYear.json");
+    let chart = Highcharts.chart("container", {
         chart: {
-            type: 'column'
+            type: "column"
         },
-
+        title: {
+            text: "IPL Matches Per Year"
+        },
         xAxis: {
-            type: 'category',
+            type: "category",
             labels: {
                 rotation: -45,
                 style: {
-                    fontSize: '13px',
-                    fontFamily: 'Verdana, sans-serif'
+                    fontSize: "13px",
+                    fontFamily: "Verdana, sans-serif"
                 }
             }
         },
         yAxis: {
             min: 0,
             title: {
-                text: 'Matches Per Year'
+                text: "Matches Per Year"
             }
         },
         legend: {
@@ -39,8 +41,21 @@ function plotGraph() {
         },
         series: [{
 
-            data: gt
-        }]
+            data: gt,
+            dataLabels: {
+                enabled: true,
+                rotation: -90,
+                color: "#FFFFFF",
+                align: "right",
+                format: "{point.y:.1f}", // one decimal
+                y: 10, // 10 pixels down from the top
+                style: {
+                    fontSize: "13px",
+                    fontFamily: "Verdana, sans-serif"
+                }
+            }
+        }],
+
     });
 }
 plotGraph();
