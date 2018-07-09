@@ -13,7 +13,7 @@ function getFiles(path) {
 
 function plotGraph() {
     let gt = getFiles("/jsonFile/matchesPerYear.json");
-    let chart = Highcharts.chart("container", {
+    let chart = new Highcharts.chart("container", {
         chart: {
             type: "column"
         },
