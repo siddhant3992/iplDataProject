@@ -24,7 +24,7 @@ describe("app", function () {
     //------------file not found case--------------------.
     it("should return file not found", async function () {
         let expectedResult = false;
-        let dat = "./ipl/text.txt"
+        let dat = "./ipl/text.txt";
         const data = await app.readCsv(dat);
         expect(data).equal(expectedResult);
     });
