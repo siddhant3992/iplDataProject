@@ -19,7 +19,7 @@ function readCsv(path) {
                 let noOfMatches = 1;
                 for (let i = 0; i < matches.length; i++) {
                     let nextElement = matches[i + 1];
-                    if (matches[i] == nextElement) {
+                    if (matches[i] === nextElement) {
                         noOfMatches += 1;
                     } else {
                         countYears.push([matches[i], noOfMatches]);
@@ -29,11 +29,11 @@ function readCsv(path) {
                 resolve(countYears);
             });
 
-        })
+        });
     }
 }
 
 //exporting function
 module.exports = {
     readCsv: readCsv
-}
+};

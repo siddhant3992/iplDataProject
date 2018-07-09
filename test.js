@@ -10,7 +10,7 @@ describe("app", function () {
 
         let expectedResult = [
             ["2017", 10]
-        ]
+        ];
         app.readCsv(dataset).then(function (data) {
             try {
                 expect(data).deep.equal(expectedResult);
@@ -18,14 +18,14 @@ describe("app", function () {
             } catch (e) {
                 done(e);
             }
-        })
+        });
 
-    })
+    });
     //------------file not found case--------------------.
     it("should return file not found", async function () {
         let expectedResult = false;
         let dat = "./ipl/text.txt"
         const data = await app.readCsv(dat);
         expect(data).equal(expectedResult);
-    })
-})
+    });
+});
